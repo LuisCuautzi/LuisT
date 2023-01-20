@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/posts"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ postDetail?.title.rendered }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div *ngIf="postDetail">
+    <div [innerHTML]="postDetail.content.rendered" padding></div>
+  </div>
+</ion-content>
+<ion-footer color="secondary">
+  <ion-toolbar>
+    <ion-button expand="full" fill="clear" (click)="goToOrgPost()">
+      Check Original Post
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,7 @@
+{
+  "name": "ionic-ng-wp-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
