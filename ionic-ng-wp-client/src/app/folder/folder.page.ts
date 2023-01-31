@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {DataService} from '../shared/data.service';
 import { LoadingController } from '@ionic/angular';
@@ -9,43 +9,50 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./folder.page.scss'],
 })
 export class FolderPage implements OnInit {
-  Posts: any = [];
-  postCount = null;
+  postCount = 1;
   page = 1;
+  items: any;
  
   constructor(
     public wpService: DataService, 
     public loadingController: LoadingController
   ) { }
  
-  ngOnInit() {
-    this.initPosts();
-  }
+  ngOnInit() { 
+    console.log('>> ngOnInit');
+    this.wpService.getAllPosts().subscribe((data: any[]) => {
+      console.log(data);
+      this.items = data;
+      this.postCount = this.wpService.allPosts;
+    });
 
+  }
   async initPosts() {
     let loading = await this.loadingController.create({
       message: 'Loading ...'
     });
  
     await loading.present();
-
-    console.log('>> ngOnInit');
-    this.wpService.getAllPosts().subscribe((data: any) => {
-          this.postCount = this.wpService.allPosts;
-          this.Posts = data;
-          console.log('ngOnInit() > Posts: %o', this.Posts);
-    });
   }
- 
-  infiniteLoad(e: any){
+
+  infiniteLoad(e: any) {
     this.page++;
  
     this.wpService.getAllPosts(this.page).subscribe((data) => {
-      this.Posts = [...this.Posts, ...data];
+      this.items = [...this.items, ...data];
       e.target.complete();
+
       if (this.page == this.wpService.pages) {
         e.target.disabled = true;
       }
     });
+  }
+
+  infiniteScrollDisabled() {
+    if (this.wpService.hasMorePosts()) {
+        return false; 
+    } else {
+        return true;
+    }
   }
 }

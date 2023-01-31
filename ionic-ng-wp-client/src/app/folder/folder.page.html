@@ -12,18 +12,44 @@
     <ion-label>
       <strong>Total Posts</strong>
     </ion-label>
-    <ion-badge color="danger" *ngIf="postCount">{{ postCount }}</ion-badge>
+    <ion-badge slot="end" color="tertiary">20</ion-badge>
   </ion-item>
-  <ion-list>
-    <ion-item *ngFor="let post of Posts">
-      <span [innerHTML]="post.title.rendered"></span>
-      <div class="item-note" slot="end">
-        {{post.id}}
-      </div>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngFor="let post of items"> 
+    <ion-img *ngIf="post._embedded['wp:featuredmedia']" 
+    [src]="post._embedded['wp:featuredmedia']['0'].source_url"></ion-img>
+    <ion-card-header>
+      <ion-card-title [innerHTML]=""> {{post.title.rendered}} </ion-card-title>
+      <ion-card-subtitle>{{ post.date_gmt | date }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>     
+      <div [innerHTML]="post.excerpt.rendered"></div>
+      <ion-item class="ion-activated" detail lines="none" color="tertiary">
+        <ion-label *ngIf="!post.modified">{{post.date | date}}</ion-label>
+        <ion-label *ngIf="post.modified">{{post.modified | date}}</ion-label>
+        <ion-button color="light" expand="full" fill="clear" [routerLink]="['/', 'post-detail', post.id]">Read More</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
   <ion-infinite-scroll threshold="120px" (ionInfinite)="infiniteLoad($event)">
     <ion-infinite-scroll-content loadingText="Fetching Posts">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-</ion-content>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button>
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button>
+        <ion-icon name="document"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="color-palette"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button>
+        <ion-icon name="globe"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+  </ion-content>
+      
+    

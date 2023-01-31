@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'folder',
     pathMatch: 'full'
   },
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
-    path: 'post-detail',
+    path: 'post-detail/:id',
     loadChildren: () => import('./post-detail/post-detail.module').then( m => m.PostDetailPageModule)
   }
 ];

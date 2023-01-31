@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="danger">
+  <ion-toolbar color="tertiary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/posts"></ion-back-button>
     </ion-buttons>
@@ -7,10 +7,23 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <div *ngIf="postDetail">
-    <div [innerHTML]="postDetail.content.rendered" padding></div>
-  </div>
-</ion-content>
+<ion-card>
+  <ion-card-content>
+    <div *ngIf="postDetail">
+      <div [innerHTML]="postDetail.content.rendered" padding></div>
+    </div>
+  </ion-card-content>
+</ion-card>
+<ion-card>
+  <ion-card color="light">
+    <ion-card-header>
+      <ion-card-title>Horario</ion-card-title>
+      <ion-card-subtitle>Gracias</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-datetime locale="es-ES"></ion-datetime>
+    </ion-card-content>
+</ion-card>
 <ion-footer color="secondary">
   <ion-toolbar>
     <ion-button expand="full" fill="clear" (click)="goToOrgPost()">
@@ -18,3 +31,19 @@
     </ion-button>
   </ion-toolbar>
 </ion-footer>
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button>
+      <ion-icon name="document"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="color-palette"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button>
+      <ion-icon name="globe"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
