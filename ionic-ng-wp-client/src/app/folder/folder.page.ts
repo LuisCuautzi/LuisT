@@ -21,9 +21,10 @@ export class FolderPage implements OnInit {
   ngOnInit() { 
     console.log('>> ngOnInit');
     this.wpService.getAllPosts().subscribe((data: any[]) => {
+      this.postCount = this.wpService.allPosts;
       console.log(data);
       this.items = data;
-      this.postCount = this.wpService.allPosts;
+
     });
 
   }
@@ -41,7 +42,7 @@ export class FolderPage implements OnInit {
     this.wpService.getAllPosts(this.page).subscribe((data) => {
       this.items = [...this.items, ...data];
       e.target.complete();
-
+  
       if (this.page == this.wpService.pages) {
         e.target.disabled = true;
       }
@@ -56,3 +57,4 @@ export class FolderPage implements OnInit {
     }
   }
 }
+ 
